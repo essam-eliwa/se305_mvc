@@ -8,16 +8,14 @@ require_once APPROOT.'/helpers/Util.php';
 
 class Core{
     private $currentController;
-    protected $params = [];
+    private $params = [];
 
     public function __construct()
     {
         //define default values
-        $modelSTR = 'IndexModel';
-        $viewSTR = 'Index';
-        $controllerSTR = 'Pages';
-
-        $controllerPath = Util\pathBuilder('controllers', $controllerSTR );
+        $modelName = 'IndexModel';
+        $viewName = 'Index';
+        $controllerName = 'Pages';
 
         //print_r($this->getUrl());
         //get parameters as array from the query string
@@ -28,15 +26,16 @@ class Core{
             $controllerPath = Util\pathBuilder('controllers', ucwords($url[0]));
             if (file_exists($controllerPath)) {
                 // If exists, set as controller
-                $controllerSTR = ucwords($url[0]);
+                $controllerName = ucwords($url[0]);
                 // Unset 0 Index
                 unset($url[0]);
             }
         }
 
         // Require and Instantiate the controller
+        $controllerPath = Util\pathBuilder('controllers', $controllerName );
         require_once $controllerPath;
-        $this->currentController = new $controllerSTR($modelSTR);
+        $this->currentController = new $controllerName($modelName);
 
         // Check for second part of url to get view and model name
         if (isset($url[1])) {
@@ -44,12 +43,12 @@ class Core{
             $modelPath = Util\pathBuilder('models', $url[1].'Model');
             if (file_exists($modelPath)) {
                 //build model name by adding Model to the view Name
-                $modelSTR = $url[1].'Model';
+                $modelName = $url[1].'Model';
                 // Unset 1 index
 
                        //use controller to load view
-                if (method_exists($this->currentController, $viewSTR)) {
-                    $viewSTR= $url[1];
+                if (method_exists($this->currentController, $viewName)) {
+                    $viewName= $url[1];
                     // Unset 1 index
                     //unset($url[1]);
                 }
@@ -61,7 +60,7 @@ class Core{
         $this->params = $url ? array_values($url) : [];
 
         // Call a callback with array of params
-        call_user_func_array([$this->currentController, $viewSTR], $this->params);
+        call_user_func_array([$this->currentController, $viewName], $this->params);
     }
 
     public function getUrl()
