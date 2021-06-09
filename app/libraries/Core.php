@@ -48,29 +48,15 @@ class Core{
             }
         }
 
+        // Require and Instantiate the controller
         require_once $controllerPath;
         $this->currentController = new $controllerSTR($modelSTR);
 
         //view constructor takes modelOBJ, and controllerOBJ
+        // Require and Instantiate the view
         require_once $viewPath;
         $this->currentView = new $viewSTR($this->currentController->getModel(), $this->currentController);
         $this->currentView->output();
-        // // Require and Instantiate the model
-        // require_once '../app/models/' . $this->currentModel . '.php';
-        // $this->currentModel = new $this->currentModel();
-        
-        // // Require and Instantiate the view
-        // require_once '../app/views/pages/' . $this->currentView . '.php';
-        // $this->currentView = new $this->currentView($this->currentModel);
-
-        // Require and Instantiate the controller
-        //require_once '../app/controllers/' . $this->currentController . '.php';
-
-        //$this->currentController = new $this->currentController($this->currentModel, $this->currentView);
-        
-
-
-
 
         // Get params
         $this->params = $url ? array_values($url) : [];

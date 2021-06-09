@@ -2,12 +2,13 @@
 class Index extends view{
   public function output(){
     $title = $this->model->title;
+    $subtitle = $this->model->subtitle;
     require APPROOT . '/views/inc/header.php';
     $text = <<<EOT
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4"> $title</h1>
-      <p class="lead">Example of MVC PHP framework</p>
+      <h2 class="lead">$subtitle</h2>
       <hr class="my-4">
       <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
     </div>
