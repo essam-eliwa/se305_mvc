@@ -1,7 +1,7 @@
 <?php
 /*
  * Base Controller
- * Loads the models and views
+ * Loads the models
  */
 require_once APPROOT.'/helpers/Util.php';
 abstract class Controller
