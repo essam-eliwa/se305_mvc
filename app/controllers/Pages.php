@@ -1,14 +1,9 @@
 <?php
 class Pages extends Controller{
 
-    public function index(){
-        // $data = [
-        //     'title' => 'MIU SE305 Blog',
-        // ];
-
-        // $this->loadView('pages/index', $data);
-        $this->view->output();
-    }
+    // public function index(){
+    //     $this->view->output();
+    // }
 
     // public function about(){
     //     $data = [
