@@ -1,6 +1,6 @@
 <?php
 /*
- * Static Util Functions
+ * Util Functions
  */
 namespace Util;
 const APP_ROOT = '../app/';
