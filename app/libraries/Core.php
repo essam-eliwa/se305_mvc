@@ -7,8 +7,7 @@
 require_once APPROOT.'/helpers/Util.php';
 
 class Core{
-    protected $currentView;
-    protected $currentController;
+    private $currentController;
     protected $params = [];
 
     public function __construct()
@@ -18,7 +17,6 @@ class Core{
         $viewSTR = 'Index';
         $controllerSTR = 'Pages';
 
-        $viewPath = Util\pathBuilder('views/pages',$viewSTR);
         $controllerPath = Util\pathBuilder('controllers', $controllerSTR );
 
         //print_r($this->getUrl());
@@ -45,37 +43,25 @@ class Core{
             // Check to see if method exists in controller
             $modelPath = Util\pathBuilder('models', $url[1].'Model');
             if (file_exists($modelPath)) {
-                $viewSTR = $url[1];
                 //build model name by adding Model to the view Name
                 $modelSTR = $url[1].'Model';
                 // Unset 1 index
 
                        //use controller to load view
-            if (method_exists($this->currentController, $viewSTR)) {
-                $this->currentMethod = $url[1];
-                // Unset 1 index
-                //unset($url[1]);
-            }
+                if (method_exists($this->currentController, $viewSTR)) {
+                    $viewSTR= $url[1];
+                    // Unset 1 index
+                    //unset($url[1]);
+                }
                 unset($url[1]);
             }
         }
-
-
-
- 
-
-        //view constructor takes modelOBJ, and controllerOBJ
-        // Require and Instantiate the view
-        //require_once $viewPath;
-        //echo  $viewPath;
-       // $this->currentView = new $viewSTR($this->currentController->getModel(), $this->currentController);
-       // $this->currentView->output();
 
         // Get params
         $this->params = $url ? array_values($url) : [];
 
         // Call a callback with array of params
-        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+        call_user_func_array([$this->currentController, $viewSTR], $this->params);
     }
 
     public function getUrl()
