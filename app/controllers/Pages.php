@@ -1,23 +1,17 @@
 <?php
 class Pages extends Controller{
 
-    // public function index(){
-    //     $this->view->output();
-    // }
+    public function index(){
+        $viewPath = PAGES_PATH . 'Index.php';
+        require_once $viewPath;
+        $indexView = new Index($this->getModel(), $this);
+        $indexView->output();
+    }
 
-    // public function about(){
-    //     $data = [
-    //         'title' => 'About Us',
-    //     ];
-
-    //     $this->loadView('pages/about', $data);
-    // }
-
-    // public function test(){
-    //     $data = [
-    //         'val1' => 'Test MVC',
-    //     ];
-
-    //     $this->loadView('pages/test', $data);
-    // }
+    public function about(){
+        $viewPath = PAGES_PATH . 'About.php';
+        require_once $viewPath;
+        $aboutView = new About($this->getModel(), $this);
+        $aboutView->output();
+    }
 }

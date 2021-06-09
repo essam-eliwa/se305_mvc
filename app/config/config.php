@@ -12,3 +12,6 @@ define('APPROOT', dirname(dirname(__FILE__)));
 define('URLROOT', 'http://localhost/mvc/');
 // Site Name
 define('SITENAME', 'MIU Blog MVC');
+
+//public pages path
+define('PAGES_PATH', '../app/views/pages/');
