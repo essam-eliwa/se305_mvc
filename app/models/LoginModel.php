@@ -3,24 +3,13 @@ require_once 'UserModel.php';
 class LoginModel extends UserModel
 {
     public  $title = 'User Login Page';
-    private $emailErr;
-    private $passwordErr;
 
-
-    public function __construct()
+    public function login($email, $password)
     {
-        parent::__construct();
-        $this->emailErr    = '';
-        $this->passwordErr = '';
-    }
+        $this->dbh->query('SELECT * from users WHERE email = :email');
+        $this->dbh->bind(':email', $email);
 
-    public function getEmailErr()
-    {
-        return $this->emailErr;
-    }
-
-    public function getPasswordErr()
-    {
-        return $this->passwordErr;
+        $record = $this->dbh->single();
+        $hash_pass = $record->password;
     }
 }
