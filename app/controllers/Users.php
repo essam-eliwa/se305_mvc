@@ -40,7 +40,9 @@ class Users extends Controller
                 $registerModel->setPassword(password_hash($registerModel->getPassword(), PASSWORD_DEFAULT));
 
                 if ($registerModel->signup()) {
-                    header('location: ' . URLROOT . 'public/users/login');
+                    //header('location: ' . URLROOT . 'public/users/login');
+                    flash('register_success', 'You have registered successfully');
+                    redirect('public/users/login');
                 } else {
                     die('Error in sign up');
                 }
@@ -74,15 +76,20 @@ class Users extends Controller
                 $userModel->setPasswordErr('Password must contain at least 4 characters');
             }
 
-
+            // If no errors
             if (
                 empty($userModel->getEmailErr()) &&
                 empty($userModel->getPasswordErr())
             ) {
                 //Check login is correct
-
-
-                die('Valid User');
+                $loggedUser = $userModel->login();
+                if ($loggedUser) {
+                    //create related session variables
+                    $this->createUserSession($loggedUser);
+                    die('Success log in User');
+                } else {
+                    $userModel->setPasswordErr('Password is not correct');
+                }
             }
         }
         // Load form
@@ -91,5 +98,13 @@ class Users extends Controller
         require_once $viewPath;
         $view = new Login($userModel, $this);
         $view->output();
+    }
+
+    public function createUserSession($user)
+    {
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['user_name'] = $user->name;
+        header('location: ' . URLROOT . 'public/pages');
+        //redirect('public/pages');
     }
 }

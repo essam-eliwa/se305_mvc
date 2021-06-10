@@ -5,6 +5,8 @@ class Index extends View
   {
     $title = $this->model->title;
     $subtitle = $this->model->subtitle;
+    $user_id = $_SESSION['user_id'];
+    $user_name = $_SESSION['user_name'];
 
     require APPROOT . '/views/inc/header.php';
     $text = <<<EOT
@@ -12,6 +14,7 @@ class Index extends View
     <div class="container">
       <h1 class="display-4"> $title</h1>
       <h2 class="lead">$subtitle</h2>
+      <p> User $user_id, $user_name is logged in</p>
       <hr class="my-4">
       <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
     </div>

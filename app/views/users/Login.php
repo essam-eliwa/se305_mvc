@@ -6,6 +6,7 @@ class Login extends view
     $title = $this->model->title;
 
     require APPROOT . '/views/inc/header.php';
+    flash('register_success');
     $text = <<<EOT
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -34,6 +35,7 @@ EOT;
     <h2>Sign Up</h2>
     <form action="$action" method="post">
 EOT;
+
     echo $text;
     $this->printEmail();
     $this->printPassword();
