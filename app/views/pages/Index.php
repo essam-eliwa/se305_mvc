@@ -1,8 +1,11 @@
 <?php
-class Index extends view{
-  public function output(){
+class Index extends View
+{
+  public function output()
+  {
     $title = $this->model->title;
     $subtitle = $this->model->subtitle;
+
     require APPROOT . '/views/inc/header.php';
     $text = <<<EOT
     <div class="jumbotron jumbotron-fluid">
@@ -14,8 +17,7 @@ class Index extends view{
     </div>
   </div>
 EOT;
-  echo $text;
-  require APPROOT . '/views/inc/footer.php';
-
+    echo $text;
+    require APPROOT . '/views/inc/footer.php';
   }
 }
