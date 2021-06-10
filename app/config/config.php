@@ -14,4 +14,4 @@ define('URLROOT', 'http://localhost/mvc/');
 define('SITENAME', 'MIU Blog MVC');
 
 //public pages path
-define('PAGES_PATH', '../app/views/pages/');
+define('VIEWS_PATH', '../app/views/');

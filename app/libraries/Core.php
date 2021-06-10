@@ -4,9 +4,10 @@
  * Creates URL & loads core controller
  * URL FORMAT - /controller/method/params
  */
-require_once APPROOT.'/helpers/Util.php';
+require_once APPROOT . '/helpers/Util.php';
 
-class Core{
+class Core
+{
     private $currentController;
     private $params = [];
 
@@ -31,33 +32,30 @@ class Core{
                 unset($url[0]);
             }
         }
-
-        // Require and Instantiate the controller
-        $controllerPath = Util\pathBuilder('controllers', $controllerName );
-        require_once $controllerPath;
-        $this->currentController = new $controllerName($modelName);
-
         // Check for second part of url to get view and model name
         if (isset($url[1])) {
             // Check to see if method exists in controller
-            $modelPath = Util\pathBuilder('models', $url[1].'Model');
+            $modelPath = Util\pathBuilder('models', $url[1] . 'Model');
             if (file_exists($modelPath)) {
                 //build model name by adding Model to the view Name
-                $modelName = $url[1].'Model';
-                // Unset 1 index
-
-                       //use controller to load view
-                if (method_exists($this->currentController, $viewName)) {
-                    $viewName= $url[1];
-                    // Unset 1 index
-                    //unset($url[1]);
-                }
-                unset($url[1]);
+                $modelName = $url[1] . 'Model';
+                $viewName = $url[1];
             }
+            unset($url[1]);
+        }
+        // Require and Instantiate the controller
+        $controllerPath = Util\pathBuilder('controllers', $controllerName);
+        require_once $controllerPath;
+        $this->currentController = new $controllerName($modelName);
+
+        if (!method_exists($this->currentController, $viewName)) {
+            die(get_class($this->currentController) . ' does not contain method: ' . $viewName);
         }
 
         // Get params
         $this->params = $url ? array_values($url) : [];
+
+        //util\debug([get_class($this->currentController), $viewName, $modelName]);
 
         // Call a callback with array of params
         call_user_func_array([$this->currentController, $viewName], $this->params);

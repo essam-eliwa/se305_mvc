@@ -17,9 +17,11 @@
             User
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Sign Up</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="<?php echo URLROOT . 'public/users/login'; ?>">Login</a></li>
+            <li><a class="dropdown-item" href="<?php echo URLROOT . 'public/users/register'; ?>">Sign Up</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </li>
