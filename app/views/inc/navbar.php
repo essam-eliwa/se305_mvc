@@ -10,19 +10,27 @@
           <a class="nav-link active" aria-current="page" href="<?php echo URLROOT . 'public'; ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT . 'public/pages/about'; ?>">About Us</a>
+          <a class="nav-link" href="<?php echo URLROOT . 'pages/about'; ?>">About Us</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            User
+            <?php if (isset($_SESSION['user_id'])) {
+              echo $_SESSION['user_name'];
+            } else {
+              echo 'User';
+            }
+            ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="<?php echo URLROOT . 'public/users/login'; ?>">Login</a></li>
-            <li><a class="dropdown-item" href="<?php echo URLROOT . 'public/users/register'; ?>">Sign Up</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <?php if (isset($_SESSION['user_id'])) : ?>
+              <li><a class="dropdown-item" href="users/logout">Logout</a></li>
+            <?php else : ?>
+              <li><a class="dropdown-item" href="<?php echo URLROOT . 'users/login'; ?>">Login</a></li>
+              <li><a class="dropdown-item" href="<?php echo URLROOT . 'users/register'; ?>">Sign Up</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            <?php endif; ?>
           </ul>
         </li>
 

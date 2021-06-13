@@ -40,9 +40,9 @@ class Users extends Controller
                 $registerModel->setPassword(password_hash($registerModel->getPassword(), PASSWORD_DEFAULT));
 
                 if ($registerModel->signup()) {
-                    //header('location: ' . URLROOT . 'public/users/login');
+                    //header('location: ' . URLROOT . 'users/login');
                     flash('register_success', 'You have registered successfully');
-                    redirect('public/users/login');
+                    redirect('users/login');
                 } else {
                     die('Error in sign up');
                 }
@@ -104,7 +104,16 @@ class Users extends Controller
     {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->name;
-        header('location: ' . URLROOT . 'public/pages');
-        //redirect('public/pages');
+        //header('location: ' . URLROOT . 'pages');
+        redirect('pages');
+    }
+
+    public function logout()
+    {
+        echo 'logout called';
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_name']);
+        session_destroy();
+        redirect('users/login');
     }
 }

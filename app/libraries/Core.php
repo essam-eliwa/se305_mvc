@@ -34,12 +34,13 @@ class Core
         }
         // Check for second part of url to get view and model name
         if (isset($url[1])) {
-            // Check to see if method exists in controller
             $modelPath = Util\pathBuilder('models', $url[1] . 'Model');
             if (file_exists($modelPath)) {
                 //build model name by adding Model to the view Name
                 $modelName = $url[1] . 'Model';
                 $viewName = $url[1];
+            } else {
+                die($modelPath . ' does not exist');
             }
             unset($url[1]);
         }
@@ -48,6 +49,7 @@ class Core
         require_once $controllerPath;
         $this->currentController = new $controllerName($modelName);
 
+        // Check to see if method exists in controller
         if (!method_exists($this->currentController, $viewName)) {
             die(get_class($this->currentController) . ' does not contain method: ' . $viewName);
         }

@@ -24,8 +24,8 @@ EOT;
 
   private function printForm()
   {
-    $action = URLROOT . 'public/users/register';
-    $loginUrl = URLROOT . 'public/users/login';
+    $action = URLROOT . 'users/register';
+    $loginUrl = URLROOT . 'users/login';
 
     $text = <<<EOT
     <div class="row">
